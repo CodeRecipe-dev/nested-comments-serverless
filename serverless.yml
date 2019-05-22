@@ -1,0 +1,66 @@
+##################################################################################
+# CodeRecipe - a marketplace for developers to grab ready to use cloud solutions #
+# More details at: https://coderecipe.ai/architectures/51056928                  #
+##################################################################################
+
+service: CodeRecipeComments
+
+provider:
+  name: aws
+  runtime: python2.7
+  stage: ${opt:stage}
+  iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:PutItem
+        Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/#{CommentsStorage}"
+
+functions:
+  AddCommentHandler:
+    handler: handler.get_comments
+    events:
+      - http:
+          path: comments/{recipe_id}
+          method: GET
+    environment:
+      Stage: ${self:provider.stage}
+      RECIPE_COMMENTS_TABLE: '#{CommentsStorage}'
+  GetCommentsHandler:
+    handler: handler.post_comments
+    events:
+      - http:
+          path: comments
+          method: POST
+    environment:
+      Stage: ${self:provider.stage}
+      RECIPE_COMMENTS_TABLE: '#{CommentsStorage}'
+
+resources:
+  Resources:
+    CommentsStorage:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: ${self:provider.stage}-CommentsStorage
+        AttributeDefinitions:
+          - AttributeName: recipeId
+            AttributeType: S
+          - AttributeName: commentedAt
+            AttributeType: N
+        KeySchema:
+          - AttributeName: recipeId
+            KeyType: HASH
+          - AttributeName: commentedAt
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+plugins:
+  - serverless-python-requirements
+  - serverless-pseudo-parameters
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
