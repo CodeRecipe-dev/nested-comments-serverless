@@ -1,5 +1,7 @@
 # Nested Comment Threads built with AWS Serverless
 
+More info here: https://coderecipe.ai/architectures/51056928
+
 ## Prerequisites
 ```  
 npm install serverless  
