@@ -26,8 +26,8 @@ serverless deploy --stage <your-stage-name>
 
 **DynamoDB Sample**
 
-![Table](https://s3.amazonaws.com/coderecipe-crlite-architectures-beta/Rohit/Nested+Comment+Threads+in+AWS+Serverless/table_preview.png)
+![Table](https://s3.amazonaws.com/coderecipe-crlite-architectures/coderecipedevs/Nested+Comment+Threads+in+AWS+Serverless/sequence_diagram_Sample+DynamoDB+Table.png)
 
 **Frontend Preview**
 
-![Preview](https://s3.amazonaws.com/coderecipe-crlite-architectures-beta/Rohit/Nested+Comment+Threads+in+AWS+Serverless/comments_preview.jpg)
+![Preview](https://s3.amazonaws.com/coderecipe-crlite-architectures/coderecipedevs/Nested+Comment+Threads+in+AWS+Serverless/sequence_diagram_Sample+Frontend.png)
